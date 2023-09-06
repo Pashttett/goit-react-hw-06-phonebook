@@ -5,28 +5,20 @@ const initialState = {
   filter: '', 
 };
 
-
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState, 
   reducers: {
     addContact: (state, action) => {
-      const { name, number } = action.payload;
-      const existingName = state.contacts.find((contact) => contact.name === name);
-      const existingNumber = state.contacts.find((contact) => contact.number === number);
-
-      if (existingName) {
-        return;
-      }
-
-      if (existingNumber) {
-        return;
-      }
       state.contacts.push(action.payload);
     },
     
     deleteContact: (state, action) => {
-      state.contacts = state.contacts.filter((contact) => contact.id !== action.payload);
+      const indexToDelete = state.contacts.findIndex((contact) => contact.id === action.payload);
+
+      if (indexToDelete !== -1) {
+        state.contacts.splice(indexToDelete, 1);
+      }
     },
 
     setFilter: (state, action) => {

@@ -13,9 +13,7 @@ function ContactList() {
   );
 
   const handleDelete = (id) => {
-    if (window.confirm('Do you really want to delete this contact?')) {
-      dispatch(deleteContact(id));
-    }
+    dispatch(deleteContact(id));
   }
 
   return (

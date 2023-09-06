@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/contactsSlice';
 import { StyledContactForm } from './ContactForm.styled';
 
@@ -11,12 +11,6 @@ function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-
-    if (!Array.isArray(contacts)) {
-      return;
-    }
-
 
     const existingName = contacts.find((contact) => contact.name === name);
     const existingNumber = contacts.find((contact) => contact.number === number);
@@ -34,10 +28,29 @@ function ContactForm() {
     dispatch(addContact({ name, number }));
     setName('');
     setNumber('');
-  }
+  };
 
   return (
     <StyledContactForm onSubmit={handleSubmit}>
+      <label>
+        Name:
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </label>
+      <label>
+        Phone Number:
+        <input
+          type="tel"
+          name="number"
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+        />
+      </label>
+      <button type="submit">Add Contact</button>
     </StyledContactForm>
   );
 }
